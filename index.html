@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Brackenfell Gazette - Front Page</title>
+<style>
+:root{
+  --paper:#efe4c9;
+  --ink:#1c1814;
+  --muted:#6d5f4d;
+  --rule:#3b3329;
+  --accent:#7b1f1f;
+  --gap:1rem;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(255,255,255,.28),transparent 30%),
+    radial-gradient(circle at 85% 90%,rgba(80,60,30,.12),transparent 28%),
+    #c8b58f;
+  padding:24px;
+}
+.page{
+  width:min(1180px,100%);
+  margin:0 auto;
+  padding:28px 32px 36px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(60,45,30,.018) 0,
+      rgba(60,45,30,.018) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    var(--paper);
+  border:1px solid #8b7654;
+  box-shadow:0 18px 50px rgba(0,0,0,.26);
+  position:relative;
+}
+.page:before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:1px solid rgba(60,45,30,.18);
+  pointer-events:none;
+}
+.gazette-front{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:var(--gap);
+}
+.masthead,.section-break,.also-developing,.story--lead{grid-column:1/-1}
+.edition-bar{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  border-top:2px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:.45rem 0;
+  font-size:.72rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.masthead{
+  text-align:center;
+  padding:1rem 0 .75rem;
+  border-bottom:5px double var(--rule);
+}
+.masthead h1{
+  margin:0;
+  font-family:"Times New Roman",Georgia,serif;
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.86;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+}
+.tagline{
+  margin-top:.55rem;
+  font-size:.82rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-style:italic;
+}
+.story{
+  border-top:3px solid var(--rule);
+  padding-top:.55rem;
+}
+.story__label{
+  margin-bottom:.25rem;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.story__headline{
+  margin:0;
+  line-height:.98;
+  letter-spacing:-.025em;
+}
+.story__standfirst{
+  margin:.55rem 0 .7rem;
+  line-height:1.35;
+  font-style:italic;
+  color:#41372c;
+}
+.story__byline{
+  margin-bottom:.75rem;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:700;
+}
+.story__body{
+  font-size:.97rem;
+  line-height:1.5;
+  text-align:justify;
+}
+.story__body p{margin:0 0 .85rem}
+.story__body p:first-child::first-letter{
+  float:left;
+  font-size:3.75rem;
+  line-height:.82;
+  padding:.32rem .38rem 0 0;
+  font-weight:700;
+  color:var(--accent);
+}
+.placeholder{
+  display:grid;
+  place-items:center;
+  border:3px double var(--rule);
+  padding:1.5rem;
+  text-align:center;
+  background:
+    linear-gradient(rgba(255,255,255,.08),rgba(0,0,0,.06)),
+    repeating-linear-gradient(135deg,#c6b182 0,#c6b182 10px,#b49d70 10px,#b49d70 12px);
+}
+.placeholder strong{
+  max-width:80%;
+  font-size:1.8rem;
+  line-height:1.1;
+  text-transform:uppercase;
+}
+.story__caption{
+  margin:.35rem 0 .8rem;
+  font-size:.7rem;
+  color:var(--muted);
+  font-style:italic;
+  text-align:center;
+}
+
+/* LEAD */
+.story--lead .story__headline{
+  font-size:clamp(3.2rem,6.4vw,6rem);
+  max-width:1100px;
+}
+.story--lead .story__standfirst{
+  font-size:1.02rem;
+}
+.lead-image{
+  width: 100%;
+  margin: .7rem 0 0;
+  border: 3px double var(--rule);
+  overflow: hidden;
+}
+
+.lead-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.lead-copy{
+  columns:3;
+  column-gap:1.35rem;
+  column-rule:1px solid rgba(59,51,41,.45);
+  font-size:1rem;
+  line-height:1.55;
+  text-align:justify;
+}
+.lead-copy p{
+  margin:0 0 .85rem;
+  break-inside:avoid;
+}
+.lead-copy p:first-child::first-letter{
+  float:left;
+  font-size:4rem;
+  line-height:.8;
+  padding:.35rem .42rem 0 0;
+  font-weight:700;
+  color:var(--accent);
+}
+
+/* SECONDARY */
+.story--secondary-a{grid-column:1/span 6}
+.story--secondary-b{grid-column:7/span 6}
+.story--secondary-a .story__headline,
+.story--secondary-b .story__headline{
+  font-size:clamp(1.8rem,3vw,2.75rem);
+}
+
+/* SECTIONS */
+.section-break{
+  margin-top:.85rem;
+  padding:.5rem 0 .45rem;
+  border-top:4px double var(--rule);
+  border-bottom:1px solid var(--rule);
+  font-size:.86rem;
+  letter-spacing:.14em;
+  text-align:center;
+  text-transform:uppercase;
+}
+.story--city-lead{grid-column:1/span 5}
+.story--city-feature{grid-column:6/span 4}
+.story--city-investigation{grid-column:10/span 3}
+.story--academy-lead{grid-column:1/span 7}
+.story--academy-secondary{grid-column:8/span 5}
+.story--graves{grid-column:1/span 6}
+.story--emporium{grid-column:7/span 6}
+
+.story--city-lead .story__headline,
+.story--academy-lead .story__headline{
+  font-size:clamp(1.6rem,2.4vw,2.35rem)
+}
+.story--city-feature .story__headline,
+.story--academy-secondary .story__headline{
+  font-size:clamp(1.35rem,2vw,1.9rem)
+}
+.story--city-investigation .story__headline,
+.story--graves .story__headline,
+.story--emporium .story__headline{
+  font-size:clamp(1.12rem,1.7vw,1.55rem)
+}
+.brief .story__body{
+  font-size:.9rem;
+  line-height:1.42;
+  text-align:left;
+}
+.brief .story__body p:first-child::first-letter{
+  float:none;font-size:inherit;line-height:inherit;padding:0;color:inherit;font-weight:inherit
+}
+.quote{
+  margin:.8rem 0;
+  padding:.65rem .8rem;
+  border-left:4px solid var(--accent);
+  background:rgba(255,255,255,.13);
+  font-style:italic;
+  line-height:1.35;
+}
+
+/* BOTTOM STRIP */
+.also-developing{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1rem;
+  margin-top:.55rem;
+  padding:.85rem 1rem;
+  border-top:4px double var(--rule);
+  border-bottom:2px solid var(--rule);
+  background:rgba(255,255,255,.08);
+}
+.also-developing__title{
+  font-weight:700;
+  letter-spacing:.12em;
+  white-space:nowrap;
+  text-transform:uppercase;
+}
+.also-developing__items{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem 1.2rem;
+  font-size:.82rem;
+  line-height:1.3;
+}
+.also-developing__items span:before{
+  content:"• ";
+  color:var(--accent);
+  font-weight:700;
+}
+.footer{
+  margin-top:1rem;
+  padding-top:.6rem;
+  border-top:1px solid var(--rule);
+  font-size:.67rem;
+  letter-spacing:.08em;
+  text-align:center;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+
+/* NEWSPAPER FILLER MODULES */
+.story-stack{
+  display:flex;
+  flex-direction:column;
+  gap:.9rem;
+}
+.story-stack > .story{
+  flex:0 0 auto;
+}
+.news-filler{
+  border:1px solid var(--rule);
+  padding:.7rem .8rem;
+  background:rgba(255,255,255,.10);
+}
+.news-filler--double{
+  border:3px double var(--rule);
+}
+.news-filler__kicker{
+  margin-bottom:.35rem;
+  font-size:.62rem;
+  font-weight:700;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.news-filler__title{
+  margin:0 0 .4rem;
+  font-size:1.05rem;
+  line-height:1.05;
+  text-transform:uppercase;
+}
+.news-filler p{
+  margin:.25rem 0;
+  font-size:.78rem;
+  line-height:1.35;
+}
+.small-rule{
+  border-top:1px solid rgba(59,51,41,.5);
+  margin:.55rem 0;
+}
+.ad-box{
+  text-align:center;
+  background:
+    radial-gradient(circle at center,rgba(255,255,255,.13),transparent 65%),
+    rgba(205,184,143,.38);
+}
+.ad-box .ad-name{
+  display:block;
+  margin:.1rem 0 .25rem;
+  font-size:1.45rem;
+  line-height:1;
+  font-weight:700;
+  text-transform:uppercase;
+}
+.ad-box .ad-line{
+  font-size:.82rem;
+  font-style:italic;
+}
+.ad-box .ad-small{
+  margin-top:.5rem;
+  font-size:.65rem;
+  line-height:1.3;
+}
+.weather-box{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.65rem;
+  align-items:center;
+}
+.weather-symbol{
+  font-size:2.7rem;
+  line-height:1;
+  filter:grayscale(1);
+}
+.weather-main{
+  font-size:.88rem;
+  line-height:1.25;
+}
+.weather-detail{
+  grid-column:1/-1;
+  padding-top:.4rem;
+  border-top:1px solid rgba(59,51,41,.45);
+  font-size:.7rem;
+  line-height:1.35;
+}
+.whispers ul,
+.classifieds ul{
+  margin:.3rem 0 0;
+  padding:0;
+  list-style:none;
+}
+.whispers li,
+.classifieds li{
+  padding:.35rem 0;
+  border-top:1px solid rgba(59,51,41,.35);
+  font-size:.72rem;
+  line-height:1.3;
+}
+.whispers li:first-child,
+.classifieds li:first-child{
+  border-top:0;
+}
+.whispers strong,
+.classifieds strong{
+  text-transform:uppercase;
+  font-size:.62rem;
+  letter-spacing:.06em;
+}
+.cartoon{
+  border:3px double var(--rule);
+  background:rgba(255,255,255,.12);
+  padding:.55rem;
+}
+.cartoon__title{
+  text-align:center;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:.45rem;
+}
+.cartoon__panels{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.45rem;
+}
+.cartoon__panel{
+  min-height:120px;
+  border:1px solid var(--rule);
+  padding:.45rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:rgba(239,228,201,.5);
+}
+.cartoon__art{
+  text-align:center;
+  font-size:2.6rem;
+  line-height:1;
+  filter:grayscale(1);
+}
+.cartoon__caption{
+  font-size:.68rem;
+  line-height:1.25;
+  text-align:center;
+  font-style:italic;
+}
+.cartoon__credit{
+  margin-top:.35rem;
+  text-align:right;
+  font-size:.56rem;
+  color:var(--muted);
+}
+.notice-strip{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:.7rem;
+}
+.notice{
+  border-top:2px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:.45rem .2rem;
+  font-size:.7rem;
+  line-height:1.3;
+}
+.notice strong{
+  display:block;
+  margin-bottom:.15rem;
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+@media(max-width:900px){
+  .notice-strip{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .notice-strip{grid-template-columns:1fr}
+  .cartoon__panels{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:900px){
+  .gazette-front{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .lead-copy{columns:2}
+  .story--secondary-a,.story--secondary-b{grid-column:span 3}
+  .story--city-lead{grid-column:span 6}
+  .story--city-feature,.story--city-investigation{grid-column:span 3}
+  .story--academy-lead,.story--academy-secondary{grid-column:span 6}
+  .story--graves,.story--emporium{grid-column:span 3}
+  .edition-bar{flex-direction:column;align-items:center;gap:.2rem}
+}
+@media(max-width:600px){
+  body{padding:0}
+  .page{width:100%;padding:20px 18px 28px;box-shadow:none;border:0}
+  .gazette-front{grid-template-columns:1fr}
+  .story,.masthead,.section-break,.also-developing{grid-column:1!important}
+  .lead-copy{columns:1}
+  .story__body,.lead-copy{text-align:left}
+  .also-developing{grid-template-columns:1fr}
+  .also-developing__items{display:grid;gap:.55rem}
+  .masthead h1{font-size:clamp(2.7rem,13vw,4rem)}
+}
+@page{size:A4;margin:9mm}
+@media print{
+  html,body{background:white}
+  body{padding:0}
+  .page{width:100%;box-shadow:none;border:0}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<main class="gazette-front">
+
+<header class="masthead">
+  <div class="edition-bar">
+    <span>Winter Edition</span>
+    <span>Second Week of the Outbreak</span>
+    <span>Brackenfell City</span>
+  </div>
+  <h1>The Brackenfell Gazette</h1>
+  <div class="tagline">Independent Reporting from the City and Academy</div>
+</header>
+
+<article class="story story--lead">
+  <div class="story__label">Public Health Investigation</div>
+  <h2 class="story__headline">One Week Into Outbreak, Questions Grow Over Brackenfell's Containment Policy</h2>
+  <p class="story__standfirst">Discovery aboard quarantined vessel gives Academy researchers a rare opportunity to study the disease at an advanced stage</p>
+  <div class="story__byline">By the Brackenfell Gazette Investigations Desk</div>
+
+  <div class="lead-image"><img src="brackenfell/Items/airship.png" alt="Quarantine Ship in Brackenfell Harbour"></div>
+  <div class="story__caption">Artist's rendering. Harbour quarantine remains in effect for arriving vessels.</div>
+
+  <div class="lead-copy">
+    <p>Brackenfell entered the second week of its latest epidemic with much of the city operating under emergency measures, but researchers may now have their first opportunity to study what happens when the disease progresses beyond the symptoms that normally trigger removal and containment.</p>
+
+    <p>Ships arriving in Brackenfell have been routinely quarantined since the outbreak began, and it was during that process that illness was discovered among the crew of a recently arrived vessel. One sailor, <strong>Dyson Hunter</strong>, deteriorated significantly before his death. Worm-like organisms were subsequently discovered in connection with his illness and preserved for examination. Researchers have since begun referring to the specimens as <strong>Hunter Worms</strong>.</p>
+
+    <p>The discovery is unusual because suspected cases within the city are generally removed at the first sign of illness. The policy is rooted in Brackenfell's experience with the epidemic sixteen years ago, when the disease killed roughly half the city's population and authorities resorted to severe containment measures. Research conducted during the present outbreak found that those measures included the use of the city's pit for infected residents.</p>
+
+    <p>That policy may have limited opportunities to observe advanced cases during the current outbreak. Hunter remained aboard a quarantined vessel rather than passing immediately through the city's usual system, allowing his condition to progress much further than cases ordinarily seen by Brackenfell residents. It is not yet known whether the organisms found in his body caused the disease, appeared as a consequence of it, or represent another stage in its development.</p>
+
+    <p>There is also uncertainty over when the ship's crew became infected. The vessel arrived after the epidemic was already active in Brackenfell, and city personnel interacted with it as part of the quarantine procedure. This leaves open the possibility that infection reached the vessel after its arrival rather than coming into the harbour aboard it. The <em>Gazette</em> has not obtained evidence sufficient to establish either explanation.</p>
+
+    <p>Attention has now turned to <strong>Professor Mycandra Tuffroot</strong> of Brackenfell Academy, who has been examining specimens from the Hunter case and is expected to present preliminary findings. Sources familiar with the investigation have also pointed to a rare flower that grows during summer in the northern mountains. The connection remains unclear, although the same flower had previously been sought in Brackenfell and the herbalist's last available specimen was reportedly used in the treatment of <strong>Adamant</strong>.</p>
+
+    <p>There is currently no public evidence that the flower constitutes a cure, and residents should be cautious of claims to that effect before Professor Tuffroot presents her findings. Its apparent connection to the investigation is nevertheless significant, particularly because obtaining another specimen in the middle of winter may prove difficult.</p>
+
+    <p>The Hunter case has also renewed questions about what Brackenfell learned during the epidemic sixteen years ago. The surviving material located by researchers places considerable emphasis on containment and spiritual treatment, while conventional medical research into the disease appears much harder to find. The Blissful Temple's control over hospitals and preference for spiritual healing were already apparent in the records examined during the present investigation.</p>
+
+    <p>Containment may be preventing the current epidemic from becoming the catastrophe Brackenfell remembers. It may also have created a system in which advanced cases are rarely observed and therefore poorly understood. Sixteen years after losing half its population, the city is once again confronting the same uncomfortable problem: it knows very well what it does with the sick, but considerably less about what the sickness does to them.</p>
+  </div>
+</article>
+
+<article class="story story--secondary-a">
+  <div class="story__label">Developing</div>
+  <h2 class="story__headline">Tuffroot Expected to Speak on Hunter Findings</h2>
+  <p class="story__standfirst">Rare northern flower emerges as focus of Academy investigation</p>
+  <div class="story__body">
+    <p>Attention has turned toward <strong>Professor Mycandra Tuffroot</strong> of Brackenfell Academy, who has been examining specimens from the Hunter case and is expected to present preliminary findings.</p>
+    <p>Sources familiar with the investigation have also pointed to a rare flower that grows during summer in the northern mountains. The connection remains unclear, although the same flower had previously been sought in Brackenfell and the herbalist's last available specimen was reportedly used in the treatment of <strong>Adamant</strong>.</p>
+    <div class="lead-image"><img src="brackenfell\City folk\flower.png" alt="Rough sketch of the rare northern flower"></div>
+    <p>There is currently no public evidence that the flower constitutes a cure, and residents should be cautious of claims to that effect before Professor Tuffroot presents her findings. Its apparent connection to the investigation is nevertheless significant, particularly because obtaining another specimen in the middle of winter may prove difficult.</p>
+  </div>
+
+  
+
+  <aside class="news-filler news-filler--double weather-box">
+    <div class="weather-symbol">❄</div>
+    <div class="weather-main">
+      <div class="news-filler__kicker">Weather</div>
+      <strong>Weak winter sun, continued snow</strong><br>
+      Cold conditions expected across Brackenfell.
+    </div>
+    <div class="weather-detail">
+      Academy paths remain heated and clear. Untreated city streets remain slick. Ash may still be present around the Merchant District.
+    </div>
+  </aside>
+
+</article>
+
+<article class="story story--secondary-b">
+  <div class="story__label">International</div>
+  <h2 class="story__headline">Goblin Empire Dismisses Reports of Dwarven Rebellion as Unrest Spreads</h2>
+  <p class="story__standfirst">Imperial authorities characterize resistance as criminal activity while reports reaching Brackenfell suggest organized opposition</p>
+  <div class="story__body">
+    <p>The Goblin Empire has rejected reports that it is facing a dwarven rebellion, despite growing accounts of organized resistance reaching Brackenfell.</p>
+    <p>In statements concerning the unrest, Imperial authorities have characterized those involved as criminals rather than members of a political or military opposition. The distinction has become increasingly important as reports of the resistance spread beyond Imperial territory and begin affecting events in Brackenfell itself.</p>
+    <p>News of a dwarven rebellion was already circulating before the recent attack on the Merchant District. The subject arose independently during discussions involving the Thieves' Guild, indicating that reports of organized resistance were established before dwarves were subsequently seen fleeing the site of the fire.</p>
+    <p>Their presence at the Merchant District has nevertheless become part of the argument over responsibility for the attack. In the aftermath, at least one merchant attempted to persuade a witness to support a version of events blaming fleeing people. The offer was rejected without disclosing what the witness actually knew about those involved.</p>
+    <p>No responsibility for starting the fire has been independently established.</p>
+    <p>The distinction matters because treating the presence of fleeing dwarves as proof that they caused the attack would support the Empire's description of the resistance as criminal violence before either the fire or the rebellion itself has been independently investigated.</p>
+    <p>Reports reaching the <em>Gazette</em> indicate that the unrest is broader than a single incident in Brackenfell. The paper is seeking further information about the organization of the resistance, conditions within dwarven communities under Imperial authority, and the Empire's response.</p>
+  </div>
+
+  <aside class="news-filler whispers">
+    <div class="news-filler__kicker">Whispers & Rumours</div>
+    <h3 class="news-filler__title">What Brackenfell Is Saying</h3>
+    <ul>
+      <li><strong>Temple:</strong> Collectors have reportedly stopped appearing at one heavily indebted local business. No explanation has been offered.</li>
+      <li><strong>Thieves' Guild:</strong> Someone inside the organization may have been acting without the Guildmistress's knowledge.</li>
+      <li><strong>Academy:</strong> Students insist the creature involved in the dormitory attack was noticeably larger when seen again.</li>
+      <li><strong>Merchant District:</strong> The number of people claiming to have personally extinguished the fire now appears to exceed the district's population.</li>
+    </ul>
+  </aside>
+</article>
+
+<h2 class="section-break">The City</h2>
+
+<article class="story story--city-lead">
+  <div class="story__label">City</div>
+  <h2 class="story__headline">Merchant District Rebuilds as Questions Over Fire Remain Unanswered</h2>
+  <p class="story__standfirst">Businesses have reopened with remarkable speed, but witnesses dispute attempts to establish an official account of the blaze</p>
+  <div class="story__body">
+    <p>The Merchant District has reopened following the magical fire that tore through the area earlier this week, although scaffolding, blackened roofs and damaged buildings remain visible throughout the neighbourhood.</p>
+    <p>Commerce has returned faster than the buildings themselves. During the first day of reconstruction, one merchant hung a sign declaring the establishment <strong>“ONLY PARTIALLY BURNED”</strong>, while another advertised a fire sale despite suffering no fire damage. Workers moved timber through the streets as residents brought food and merchants attempted to reassure customers that business would continue.</p>
+    <p>What has not recovered as quickly is agreement over what happened.</p>
+    <p>Rumours circulating after the fire blamed scalpers, dwarven agitators and other groups. Another account credited the Blissful Temple with helping fight the blaze. Witnesses who participated in the firefighting disputed that version, saying Temple personnel concentrated primarily on protecting Temple property while residents, students and merchants worked to stop the flames from spreading into nearby homes.</p>
+    <p>There have also been attempts to secure public support for particular versions of events. One witness was offered a blue-and-silver <strong>“Defender of the City”</strong> ribbon while being encouraged to support an account blaming people seen fleeing the district. The witness refused.</p>
+    <p>The <em>Gazette</em> has not established who started the fire.</p>
+    <p>What can be established is that much of the firefighting was performed by people already in the district, who formed improvised lines, moved civilians and fought to keep the flames away from surrounding buildings. By the following evening, those efforts had become the basis for an unusual public celebration.</p>
+  </div>
+
+  <aside class="news-filler news-filler--double ad-box">
+    <div class="news-filler__kicker">Advertisement</div>
+    <span class="ad-name">Byron Hogan's Tea</span>
+    <div class="ad-line">Hot tea for cold streets, long nights and avoidable civic emergencies.</div>
+      <div class="lead-image"><img src="brackenfell/Items/tea-byron-hogan.png" alt="Quarantine Ship in Brackenfell Harbour" style=""></div>
+    <div class="ad-small">Now serving at the Crimson Emporium. Ask about event service. Furniture availability not guaranteed.</div>
+  </aside>
+</article>
+
+<article class="story story--city-feature">
+  <div class="story__label">Community</div>
+  <h2 class="story__headline">Night of the Thousand Buckets Draws Residents Back to Damaged District</h2>
+  <p class="story__standfirst">Recovery supper grows into citywide celebration less than a day after the fire</p>
+  <aside class="news-filler classifieds">
+    <div class="news-filler__kicker">Classifieds</div>
+    <ul>
+      <li><strong>Wanted:</strong> Information concerning the alias “Magpie.” Discretion preferred. Accuracy mandatory.</li>
+      <li><strong>Found:</strong> One blue-and-silver civic ribbon. Owner claims everyone deserves one.</li>
+      <li><strong>For Sale:</strong> Fire-damaged merchandise. Some items may not have been near the fire.</li>
+      <li><strong>Lost:</strong> Public confidence. Last seen somewhere between the harbour and Merchant District.</li>
+    </ul>
+  </aside>
+  <div class="story__body">
+    <p>Residents returned to the Merchant District for <strong>The Night of the Thousand Buckets</strong>, a recovery gathering organized almost immediately after the previous night's fire.</p>
+    <p>The event began with three somewhat different intentions. Local residents wanted to feed and thank those who had carried water, moved families and remained in the district during the emergency. The Merchant Guild wanted a formal reopening celebration. Brackenfell Academy sent Professor <strong>Aurelian Graves</strong> as its faculty representative.</p>
+    <p>The resulting gathering was less formal than any of its organizers appear to have intended. The Brackenfell Bucketeers attended, animal costumes became the evening's theme, merchants served food among the damaged buildings, and buckets left over from the firefighting were incorporated into decorations throughout the venue.</p>
+    <p>For a city already living through a pandemic, the gathering offered a rare evening in which the week's emergencies produced something resembling ordinary communal life.</p>
+    <p>It did not last uninterrupted.</p>
+    <p>During the celebration, the <strong>Reconstruction Ledger</strong>, used to record contributions and losses from the fire, disappeared. The book was recovered after a pursuit through the district, but its contents raised further questions when an old entry belonging to <strong>Sable Quince</strong> identified Professor Graves as witness to an agreement he said he had never witnessed. Examination of the entry also revealed a Theta mark behind a redaction.</p>
+    <p>No public explanation has yet been provided for how Graves's name came to appear on the record.</p>
+  </div>
+
+   
+
+  <aside class="cartoon">
+    <div class="cartoon__title">Editorial Cartoon — “Preparedness”</div>
+    <div class="cartoon__panels">
+    <div class="cartoon__panel">
+    <div class="cartoon__art">🐾</div>
+    <div class="cartoon__caption">“A creature has attacked the dormitory.”</div>
+    </div>
+    <div class="cartoon__panel">
+    <div class="cartoon__art">⚔</div>
+    <div class="cartoon__caption">“Excellent. Schedule a practical.”</div>
+    </div>
+    </div>
+    <div class="cartoon__credit">— The Gazette editorial desk</div>
+  </aside>
+</article>
+
+<article class="story story--city-investigation brief">
+  <div class="story__label">Investigation</div>
+  <h2 class="story__headline">Thieves Guild Denies Authorizing Crimson Emporium Burglary</h2>
+  <p class="story__standfirst">Investigation turns toward unidentified figure known as “The Magpie”</p>
+  <div class="story__body">
+    <p>The theft of several items from the <strong>Crimson Emporium</strong> is increasingly unlikely to have been an ordinary Thieves' Guild collection.</p>
+    <p>The burglary initially appeared straightforward. A window was broken, goods were removed and a note was left reading <strong>“With love, from Thieves' Guild.”</strong></p>
+    <p>When the matter later reached Guild leadership, however, <strong>Marisha</strong>, owner of the Thieves' Guild, said she had not known about the theft. The discovery suggested that someone within the organization had acted without authorization and potentially interfered with both Guild business and the Emporium's existing debt.</p>
+    <div class="lead-image"><img src="brackenfell\Professor\marisha.png" alt="Marisha, owner of the Thieves Guild"></div>
+    <p>The investigation subsequently produced an alias associated with the unauthorized theft: <strong>The Magpie</strong>. Sable Quince agreed to investigate the name further after the Night of the Thousand Buckets.</p>
+    <div class="lead-image"><img src="brackenfell\City folk\magpie.png" alt="Magpie symbol as graffiti on city walls"></div>
+    <p>The identity of the Magpie remains unknown.</p>
+    <p>For the Guild, the problem is no longer merely that somebody robbed a shop. Someone appears to have done it while borrowing the Guild's reputation, and did so to a business from which the Guild was already expecting payment.</p>
+  </div>
+</article>
+
+<h2 class="section-break">Brackenfell Academy</h2>
+
+<article class="story story--academy-lead">
+  <div class="story__label">Campus Emergency</div>
+  <h2 class="story__headline">Student Killed in Dormitory Attack; Creature Remains Unaccounted For</h2>
+  <p class="story__standfirst">Brackenfell Academy faces questions after witnesses encounter apparently larger animal later the same day</p>
+  <div class="story__body">
+    <p>A Brackenfell Academy student was killed and several others injured when an unidentified creature attacked a dormitory earlier this week.</p>
+    <p>The creature escaped onto Academy grounds before it could be contained. Witnesses later encountered what appeared to be the same animal while travelling toward the infirmary and reported that it had grown substantially since the original attack. The second encounter ended without the creature being captured.</p>
+    <p>The Academy has not publicly identified the animal or explained how it entered the dormitory. Its apparent growth between the two encounters is also unexplained.</p>
+    <p>The incident comes at a particularly difficult time for Brackenfell, with the city already operating under pandemic restrictions. There is presently no evidence connecting the creature to the outbreak.</p>
+    <p>Academy officials have nevertheless been left with a second biological hazard to contain within the same week.</p>
+  </div>
+</article>
+
+<article class="story story--academy-secondary">
+  <div class="story__label">Campus</div>
+  <h2 class="story__headline">Emergency Martial Class Sends Students to Infirmary</h2>
+  <p class="story__standfirst">Academy responds to fatal attack with intensified combat training</p>
+  <div class="story__body">
+    <p>Brackenfell Academy held an emergency Martial lesson following the fatal dormitory attack, intended to prepare students for encounters with dangerous creatures.</p>
+    <p>Professor <strong>Velna Kerr</strong> led students through a magical combat exercise involving several simulated adversaries. The exercise escalated considerably beyond its opening training drills, with multiple participants suffering serious injuries before completing the challenge. Several subsequently reported to the Academy infirmary.</p>
+    <p>The exercise appears to have accomplished its stated purpose of exposing students to dangerous combat conditions.</p>
+    <p>Whether doing so immediately after a fatal attack represented the best moment for that lesson is a separate question.</p>
+  </div>
+
+  
+</article>
+
+<article class="story story--graves brief">
+  <div class="story__label">Campus & People</div>
+  <h2 class="story__headline">Graves Returns to Public Duties, but Faculty Status Remains Unclear</h2>
+  <div class="story__body">
+    <p>Professor <strong>Aurelian Graves</strong> represented Brackenfell Academy at the Night of the Thousand Buckets despite an unresolved dispute over his employment.</p>
+    <div class="quote">“Apparently I am sufficiently employed to represent Brackenfell at dinner, but insufficiently employed to teach tomorrow morning,” Graves said before the event.</div>
+    <p>His situation became more complicated during the celebration. Registrar Pellan Scrip presented Graves with reinstatement papers that would also have made him responsible for unfinished obligations associated with his former office. Graves declined to sign immediately. Later that evening, the recovered Reconstruction Ledger identified him as witness to a thirteen-year-old agreement he says he never witnessed.</p>
+    <p>The coincidence is likely to make the language surrounding his proposed reinstatement considerably more important than it appeared earlier in the evening.</p>
+  </div>
+</article>
+
+<article class="story story--emporium brief">
+  <div class="story__label">Business Watch</div>
+  <h2 class="story__headline">Crimson Emporium Survives Another Week</h2>
+  <p class="story__standfirst">Tea sales provide rare stability for business facing debt, theft and a proprietor now training in medicine</p>
+  <div class="story__body">
+    <p>The <strong>Crimson Emporium</strong> remains open despite an eventful first stretch under its new ownership.</p>
+    <p>Tea sales operated by Byron Hogan have become a significant source of revenue, even as the business deals with outstanding debts, the recent burglary and continuing work to make its upper floor usable. The shop also provided tea during the Night of the Thousand Buckets.</p>
+    <p>Proprietor <strong>Dota Pont</strong> has meanwhile begun training in the Brackenfell Academy infirmary. During the aftermath of the recent dormitory attack, Pont successfully treated an injured student and subsequently began an apprenticeship under the infirmary's medical staff.</p>
+    <p>The development gives the Emporium an unusual combination of retail, tea service and emerging medical expertise.</p>
+    <p>Whether this constitutes diversification or a warning sign will depend largely on what Mr. Pont chooses to sell next.</p>
+  </div>
+</article>
+
+<section class="notice-strip">
+  <div class="notice">
+    <strong>Public Notice</strong>
+    Residents with symptoms are reminded to follow quarantine instructions and report illness promptly.
+  </div>
+  <div class="notice">
+    <strong>Academy Notice</strong>
+    Students are advised not to approach unidentified creatures on school grounds, regardless of size or apparent cuteness.
+  </div>
+  <div class="notice">
+    <strong>Corrections</strong>
+    The Gazette welcomes corrections supported by witnesses, documents, or evidence stronger than “my cousin heard it.”
+  </div>
+</section>
+
+<section class="also-developing">
+  <div class="also-developing__title">Also Developing</div>
+  <div class="also-developing__items">
+    <span>Temple debt collections at the Crimson Emporium have stopped without explanation</span>
+    <span>Professor Mycandra Tuffroot is expected to present findings from her examination of the Hunter specimens</span>
+    <span>The Magpie remains unidentified</span>
+    <span>The cause of the Merchant District fire remains officially unresolved</span>
+    <span>The unidentified creature responsible for the Brackenfell Academy dormitory death remains unaccounted for</span>
+  </div>
+</section>
+
+</main>
+<footer class="footer">The Brackenfell Gazette · Independent City & Academy Reporting · Special Outbreak Edition</footer>
+</div>
+</body>
+</html>
